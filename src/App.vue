@@ -38,7 +38,7 @@ nav {
 }
 
 nav a.router-link-exact-active {
-    color: var(--vt-green);
+    color: var(--vt-c-green);
 }
 
 nav a.router-link-exact-active:hover {

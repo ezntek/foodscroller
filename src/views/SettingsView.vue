@@ -8,6 +8,7 @@ Read LICENSE.md at the root of the project to learn more.
 <script lang="ts" setup>
 import AllergyBubble from '@/components/AllergyBubble.vue'
 import DietBubble from '@/components/DietBubble.vue'
+import DividerItem from '@/components/DividerItem.vue'
 import { Allergy, Diet } from '@/types'
 import { onBeforeMount, ref } from 'vue'
 
@@ -59,6 +60,10 @@ const addAllergy = (allergy: Allergy) => {
 }
 
 const removeAllergy = (allergy: Allergy) => {
+    // filter every element in the array by the given predicate (condition). The condition
+    // is that the element shouldn't be the allergy to remove, therefore the resulting list
+    // should not contain the allergy to be removed.
+
     selectedAllergies.value = selectedAllergies.value.filter((a) => a != allergy)
     window.localStorage.setItem('allergies', selectedAllergies.value.join(';'))
 }
@@ -68,15 +73,14 @@ const removeAllergy = (allergy: Allergy) => {
     <div class="settings-container">
         <h1 class="title" style="margin-bottom: 0.3em">YOUR DIET</h1>
 
-        <p class="settings-container-label">Your diet is:</p>
-        <hr style="margin-bottom: 0.3em" />
+        <DividerItem>Your diet is:</DividerItem>
         <div class="diet-container">
             <DietBubble :diet="selectedDiet" :showTick="false" />
         </div>
 
         <br />
-        <p class="settings-container-label">Or set your diet:</p>
-        <hr style="margin-bottom: 0.3em" />
+
+        <DividerItem>Or set your diet:</DividerItem>
         <!-- ESLint recommends an index while using the v-for directive, even if one doesn't use the index. -->
         <div class="all-diets-container" v-for="(diet, index) in diets" :key="index">
             <button class="settings-container-diet-button" @click="setCurrentDiet(diet)">
@@ -85,15 +89,19 @@ const removeAllergy = (allergy: Allergy) => {
         </div>
 
         <h1 class="title">YOUR ALLERGIES</h1>
-        <p class="settings-container-label">Your allergies:</p>
-        <hr style="margin-bottom: 0.3em" />
+        <DividerItem>Your allergies:</DividerItem>
         <div v-if="selectedAllergies.length != 0">
             <div
                 class="all-diets-container"
                 v-for="(allergy, index) in selectedAllergies"
                 :key="index"
             >
-                <button class="settings-container-diet-button" @click="removeAllergy(allergy)">
+                <button
+                    class="settings-container-diet-button"
+                    v-if="(allergy as string) !== ''"
+                    @click="removeAllergy(allergy)"
+                >
+                    <!-- typecast must be done due to TS shenanigans -->
                     <AllergyBubble
                         :allergy="allergy"
                         :showXmark="true"
@@ -106,8 +114,7 @@ const removeAllergy = (allergy: Allergy) => {
             <p style="margin-bottom: 1em">Nothing to see here...</p>
         </div>
 
-        <p class="settings-container-label">Or add your allergies:</p>
-        <hr style="margin-bottom: 0.3em" />
+        <DividerItem>Or add your allergies:</DividerItem>
         <div class="all-diets-container" v-for="(allergy, index) in allergies" :key="index">
             <button class="settings-container-diet-button" @click="addAllergy(allergy)">
                 <AllergyBubble
@@ -135,11 +142,5 @@ const removeAllergy = (allergy: Allergy) => {
     display: inline-block;
     padding: 0;
     border: none;
-}
-
-.settings-container-label {
-    margin-bottom: 0.3em;
-    display: flex;
-    justify-content: center;
 }
 </style>

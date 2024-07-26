@@ -56,11 +56,11 @@ defineProps<Props>()
 }
 
 .diet-bubble-container-blue {
-    background-color: var(--vt-blue);
+    background-color: var(--vt-c-blue);
 }
 
 .diet-bubble-container-green {
-    background-color: var(--vt-green);
+    background-color: var(--vt-c-green);
 }
 
 .diet-bubble-container-icon FontAwesomeIcon {

@@ -54,7 +54,7 @@ defineProps<Props>()
         />
         <FontAwesomeIcon
             v-else
-            :icon="fas.faSquarePlus"
+            :icon="far.faSquarePlus"
             class="allergy-bubble-container-x-icon"
             style="color: var(--vt-c-white-soft)"
         />
@@ -70,11 +70,11 @@ defineProps<Props>()
 }
 
 .allergy-bubble-container-blue {
-    background-color: var(--vt-blue);
+    background-color: var(--vt-c-blue);
 }
 
 .allergy-bubble-container-green {
-    background-color: var(--vt-green);
+    background-color: var(--vt-c-green);
 }
 
 .allergy-bubble-container-icon FontAwesomeIcon {

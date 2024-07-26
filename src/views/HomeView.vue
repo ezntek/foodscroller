@@ -9,6 +9,6 @@ Read LICENSE.md at the root of the project to learn more.
 
 <template>
     <main>
-        <h1>the welcome screen hahahha</h1>
+        <h1>HOME</h1>
     </main>
 </template>
