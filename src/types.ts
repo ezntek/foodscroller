@@ -14,4 +14,13 @@ export enum Diet {
     Pescetarian = 'Pescetarian'
 }
 
-export enum Allergies {}
+export enum Allergy {
+    Dairy = 'Dairy',
+    Egg = 'Egg',
+    Gluten = 'Gluten',
+    Peanut = 'Peanut',
+    Seafood = 'Seafood',
+    Shellfish = 'Shellfish',
+    Soy = 'Soy',
+    Wheat = 'Wheat'
+}

@@ -6,8 +6,9 @@ Read LICENSE.md at the root of the project to learn more.
 -->
 
 <script lang="ts" setup>
+import AllergyBubble from '@/components/AllergyBubble.vue'
 import DietBubble from '@/components/DietBubble.vue'
-import { Diet } from '@/types'
+import { Allergy, Diet } from '@/types'
 import { onBeforeMount, ref } from 'vue'
 
 const diets = ref([
@@ -19,20 +20,47 @@ const diets = ref([
     Diet.Pescetarian
 ])
 
-const selectedDiet = ref<Diet>(Diet.Vegetarian)
+const allergies = ref([
+    Allergy.Dairy,
+    Allergy.Egg,
+    Allergy.Gluten,
+    Allergy.Peanut,
+    Allergy.Seafood,
+    Allergy.Shellfish,
+    Allergy.Soy,
+    Allergy.Wheat
+])
+
+const selectedAllergies = ref<Array<Allergy>>([])
+const selectedDiet = ref<Diet>(Diet.Vegetarian) // generic type argument needed for enums
 
 // Set onBeforeMount to load the selected diet from local storage. Kind of like a constructor
 onBeforeMount(() => {
     let diet = window.localStorage.getItem('selectedDiet')
-    if (diet == null) {
-        diet = Diet.NonVegetarian
+    let allergies = window.localStorage.getItem('allergies')
+    if (allergies === null) {
+        allergies = ''
     }
-    selectedDiet.value = diet as Diet
+    const allergies_arr = allergies.split(';')
+
+    console.log('loaded')
+    selectedDiet.value = diet !== null ? (diet as Diet) : Diet.Vegetarian
+    selectedAllergies.value = allergies !== null ? (allergies_arr as Array<Allergy>) : []
 })
 
 const setCurrentDiet = (diet: Diet) => {
     selectedDiet.value = diet
     window.localStorage.setItem('selectedDiet', diet)
+}
+
+const addAllergy = (allergy: Allergy) => {
+    selectedAllergies.value.push(allergy)
+    window.localStorage.setItem('allergies', selectedAllergies.value.join(';'))
+}
+
+const removeAllergy = (allergy: Allergy) => {
+    selectedAllergies.value = selectedAllergies.value.filter((a) => a != allergy)
+    window.localStorage.setItem('allergies', selectedAllergies.value.join(';'))
 }
 </script>
 
@@ -57,14 +85,42 @@ const setCurrentDiet = (diet: Diet) => {
         </div>
 
         <h1 class="title">YOUR ALLERGIES</h1>
+        <p class="settings-container-label">Your allergies:</p>
+        <hr style="margin-bottom: 0.3em" />
+        <div v-if="selectedAllergies.length != 0">
+            <div
+                class="all-diets-container"
+                v-for="(allergy, index) in selectedAllergies"
+                :key="index"
+            >
+                <button class="settings-container-diet-button" @click="removeAllergy(allergy)">
+                    <AllergyBubble
+                        :allergy="allergy"
+                        :showXmark="true"
+                        v-if="selectedAllergies.includes(allergy)"
+                    />
+                </button>
+            </div>
+        </div>
+        <div v-else>
+            <p style="margin-bottom: 1em">Nothing to see here...</p>
+        </div>
+
+        <p class="settings-container-label">Or add your allergies:</p>
+        <hr style="margin-bottom: 0.3em" />
+        <div class="all-diets-container" v-for="(allergy, index) in allergies" :key="index">
+            <button class="settings-container-diet-button" @click="addAllergy(allergy)">
+                <AllergyBubble
+                    :allergy="allergy"
+                    :showXmark="false"
+                    v-if="!selectedAllergies.includes(allergy)"
+                />
+            </button>
+        </div>
     </div>
 </template>
 
 <style scoped>
-.title {
-    font-weight: 800;
-}
-
 .diet-container {
     display: flex;
 }

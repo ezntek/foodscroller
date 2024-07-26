@@ -25,10 +25,10 @@ defineProps<Props>()
 
 <template>
     <div
-        class="bubble-container"
-        :class="$props.showTick ? 'bubble-container-green' : 'bubble-container-blue'"
+        class="diet-bubble-container"
+        :class="$props.showTick ? 'diet-bubble-container-green' : 'diet-bubble-container-blue'"
     >
-        <span class="bubble-container-icon">
+        <span class="diet-bubble-container-icon">
             <!-- using Vue's v-if/v-else-if/v-else directives to do conditional rendering -->
             <FontAwesomeIcon v-if="$props.diet == Diet.Vegetarian" :icon="fas.faLeaf" />
             <FontAwesomeIcon v-else-if="$props.diet == Diet.LactoVegetarian" :icon="fas.faCow" />
@@ -37,48 +37,48 @@ defineProps<Props>()
             <FontAwesomeIcon v-else-if="$props.diet == Diet.NonVegetarian" :icon="fas.faBacon" />
             <FontAwesomeIcon v-else-if="$props.diet == Diet.Pescetarian" :icon="fas.faFish" />
         </span>
-        <span class="bubble-container-diet-name">{{ $props.diet }}</span>
+        <span class="diet-bubble-container-diet-name">{{ $props.diet }}</span>
         <FontAwesomeIcon
             v-if="$props.showTick"
             :icon="far.faSquarePlus"
-            class="bubble-container-x-icon"
+            class="diet-bubble-container-x-icon"
             style="color: var(--vt-c-white-soft)"
         />
     </div>
 </template>
 
 <style scoped>
-.bubble-container {
+.diet-bubble-container {
     display: flex;
     border-radius: 8px;
     padding: 0.3em;
     margin: 0.3em;
 }
 
-.bubble-container-blue {
+.diet-bubble-container-blue {
     background-color: var(--vt-blue);
 }
 
-.bubble-container-green {
+.diet-bubble-container-green {
     background-color: var(--vt-green);
 }
 
-.bubble-container-icon FontAwesomeIcon {
+.diet-bubble-container-icon FontAwesomeIcon {
     margin-top: 0.3em;
 }
 
-.bubble-container .bubble-container-x-icon {
+.diet-bubble-container .diet-bubble-container-x-icon {
     display: none;
     margin-top: 0.3em;
     margin-left: 0.5em;
     color: var(--vt-c-red);
 }
 
-.bubble-container:hover .bubble-container-x-icon {
+.diet-bubble-container:hover .diet-bubble-container-x-icon {
     display: inline-block;
 }
 
-.bubble-container-diet-name {
+.diet-bubble-container-diet-name {
     color: var(--vt-c-white-soft);
     font-weight: 700;
     margin-left: 0.3em;
