@@ -37,7 +37,7 @@ const selectedDiet = ref<Diet>(Diet.Vegetarian) // generic type argument needed 
 
 // Set onBeforeMount to load the selected diet from local storage. Kind of like a constructor
 onBeforeMount(() => {
-    let diet = window.localStorage.getItem('selectedDiet')
+    let diet = window.localStorage.getItem('diet')
     let allergies = window.localStorage.getItem('allergies')
     if (allergies === null) {
         allergies = ''
@@ -51,7 +51,7 @@ onBeforeMount(() => {
 
 const setCurrentDiet = (diet: Diet) => {
     selectedDiet.value = diet
-    window.localStorage.setItem('selectedDiet', diet)
+    window.localStorage.setItem('diet', diet)
 }
 
 const addAllergy = (allergy: Allergy) => {
