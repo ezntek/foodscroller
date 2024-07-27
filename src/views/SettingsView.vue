@@ -83,7 +83,7 @@ const removeAllergy = (allergy: Allergy) => {
         <DividerItem>Or set your diet:</DividerItem>
         <!-- ESLint recommends an index while using the v-for directive, even if one doesn't use the index. -->
         <div class="all-diets-container" v-for="(diet, index) in diets" :key="index">
-            <button class="settings-container-diet-button" @click="setCurrentDiet(diet)">
+            <button class="null-button" @click="setCurrentDiet(diet)">
                 <DietBubble :diet="diet" :showTick="true" v-if="diet != selectedDiet" />
             </button>
         </div>
@@ -97,7 +97,7 @@ const removeAllergy = (allergy: Allergy) => {
                 :key="index"
             >
                 <button
-                    class="settings-container-diet-button"
+                    class="null-button"
                     v-if="(allergy as string) !== ''"
                     @click="removeAllergy(allergy)"
                 >
@@ -116,7 +116,7 @@ const removeAllergy = (allergy: Allergy) => {
 
         <DividerItem>Or add your allergies:</DividerItem>
         <div class="all-diets-container" v-for="(allergy, index) in allergies" :key="index">
-            <button class="settings-container-diet-button" @click="addAllergy(allergy)">
+            <button class="null-button" @click="addAllergy(allergy)">
                 <AllergyBubble
                     :allergy="allergy"
                     :showXmark="false"
@@ -135,12 +135,5 @@ const removeAllergy = (allergy: Allergy) => {
 .all-diets-container {
     display: inline-block;
     margin-bottom: 3em;
-}
-
-.settings-container-diet-button {
-    all: unset;
-    display: inline-block;
-    padding: 0;
-    border: none;
 }
 </style>
