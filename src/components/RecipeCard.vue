@@ -1,23 +1,48 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import type { RecipeInfo } from '@/types'
+import RecipeInfoDisplay from './RecipeInfoDisplay.vue'
 
-const imageUrl = ref('https://img.spoonacular.com/recipes/715415-312x231.jpg')
+interface Props {
+    recipeInfo: RecipeInfo
+}
+
+const props = defineProps<Props>()
+let title = props.recipeInfo.title.slice(0, 59)
+if (props.recipeInfo.title.length > 59) {
+    title = title.slice(0, 56) + '...'
+}
 </script>
 
 <template>
     <div class="recipe-card-container">
-        <img :src="imageUrl" class="recipe-card-image" />
+        <img :src="props.recipeInfo.imageURL" class="recipe-card-image" />
+        <div class="recipe-card-info">
+            <h1 class="recipe-card-title">{{ title }}</h1>
+            <RecipeInfoDisplay :recipe-info="$props.recipeInfo" />
+            <p v-html="$props.recipeInfo.summary" class="recipe-card-description"></p>
+        </div>
     </div>
 </template>
 
 <style scoped>
 .recipe-card-container {
     display: flex;
-    background-color: var(--vt-c-divider-dark-1);
     padding: 1rem;
     margin: 0.5rem;
+    margin-bottom: 1em;
     border-radius: 12px;
     transition: 300ms;
+    max-height: 12.5rem;
+    background-color: var(--vt-c-divider-dark-2);
+}
+
+.recipe-card-description {
+    max-height: 4.5rem;
+    overflow: hidden;
+}
+
+.recipe-card-title {
+    font-weight: 600;
 }
 
 .recipe-card-container:hover {
@@ -27,5 +52,6 @@ const imageUrl = ref('https://img.spoonacular.com/recipes/715415-312x231.jpg')
 .recipe-card-image {
     width: 218px;
     height: 162px;
+    margin-right: 1em;
 }
 </style>

@@ -26,7 +26,7 @@ export enum Allergy {
 }
 
 // Describes any object with key type string and value type any.
-interface AnyObject {
+export interface AnyObject {
     [key: string]: any
 }
 
@@ -56,6 +56,10 @@ export class RecipeInfo {
         this.summary = recipeObj['summary']
         this.sourceURL = recipeObj['sourceUrl']
         this.imageURL = recipeObj['image']
+
+        if (this.timeToCook == 0) {
+            this.timeToCook = recipeObj['readyInMinutes'] as number
+        }
 
         let ingredients: Array<string> = []
         let equipment: Array<string> = []

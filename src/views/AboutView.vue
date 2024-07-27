@@ -7,14 +7,14 @@ Read LICENSE.md at the root of the project to learn more.
 
 <template>
     <div class="about">
-        <h1>ABOUT</h1>
+        <h1 class="title">ABOUT</h1>
         <br />
         <p>
             This simple web application is made for you to discover new recipies, while keeping your
             pantry, all your allergies and other dietary needs in check.
         </p>
         <br />
-        <h1>FURTHER INFORMATION</h1>
+        <h1 class="title">FURTHER INFORMATION</h1>
         <br />
         <p>
             This was created for the GIIS Hackathon X from the 26th to the 27th of July, 2024. This
