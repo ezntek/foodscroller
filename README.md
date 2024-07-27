@@ -2,6 +2,8 @@
 
 A recipe scroller web app that I made for the GIIS Hackathon X.
 
+***guys I won second place 💀***
+
 ## Running
 
 -   `npm install`
