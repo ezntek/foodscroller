@@ -30,7 +30,7 @@ export interface AnyObject {
     [key: string]: any
 }
 
-export class RecipeInfo {
+export class Recipe {
     vegetarian: boolean
     vegan: boolean
     glutenFree: boolean

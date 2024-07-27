@@ -1,11 +1,18 @@
+<!--
+Copyright (c) Eason Qin, 2024.
+
+This source code form is licensed under the MIT/Expat license.
+Read LICENSE.md at the root of the project to learn more.
+-->
+
 <script lang="ts" setup>
-import type { RecipeInfo } from '@/types'
+import type { Recipe } from '@/types'
 import { far } from '@fortawesome/free-regular-svg-icons'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 interface Props {
-    recipeInfo: RecipeInfo
+    recipeInfo: Recipe
 }
 
 defineProps<Props>()

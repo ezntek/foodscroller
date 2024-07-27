@@ -7,8 +7,11 @@ Read LICENSE.md at the root of the project to learn more.
 
 <script setup lang="ts">
 import RecipeCard from '@/components/RecipeCard.vue'
-import { RecipeInfo, type AnyObject } from '@/types'
+import { Recipe, type AnyObject } from '@/types'
 import { onBeforeMount, ref, type Ref } from 'vue'
+import RecipeView from './RecipeView.vue'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { fas } from '@fortawesome/free-solid-svg-icons'
 
 let sampleResponse = String.raw`{
     "results": [
@@ -1841,22 +1844,65 @@ let sampleResponse = String.raw`{
     "totalResults": 5233
 }`
 
-const recipes: Ref<Array<RecipeInfo>> = ref([])
+const recipes: Ref<Array<Recipe>> = ref([])
+const selectedRecipeIndex = ref(0)
+const showMain = ref(true)
 
 onBeforeMount(async () => {
     let results: Array<AnyObject> = JSON.parse(sampleResponse)['results']
     results.forEach((recipeObj: AnyObject) => {
-        recipes.value.push(new RecipeInfo(recipeObj))
+        recipes.value.push(new Recipe(recipeObj))
     })
 })
+
+const openRecipe = (index: number) => {
+    selectedRecipeIndex.value = index
+    showMain.value = !showMain.value
+}
 </script>
 
 <template>
-    <main>
+    <div v-if="showMain">
         <h1 class="title">DISCOVER RECIPES</h1>
         <br />
-        <div v-for="(recipe, index) in recipes" :key="index">
-            <RecipeCard :recipe-info="recipe"></RecipeCard>
-        </div>
-    </main>
+        <main>
+            <div v-for="(recipe, index) in recipes" :key="index">
+                <button class="null-button" @click="openRecipe(index)">
+                    <RecipeCard :recipe-info="recipe"></RecipeCard>
+                </button>
+            </div>
+        </main>
+    </div>
+    <div v-else>
+        <RecipeView :recipe-list="recipes" :index="selectedRecipeIndex"></RecipeView>
+
+        <button class="back-home-button" @click="showMain = !showMain">
+            <FontAwesomeIcon :icon="fas.faCircleArrowLeft" />
+            <span>GO BACK</span>
+        </button>
+    </div>
 </template>
+
+<style scoped>
+.back-home-button {
+    all: unset;
+    border: none;
+    background-color: var(--vt-c-red);
+    padding: 0.3em;
+    padding-left: 0.6em;
+    padding-right: 0.6em;
+    border-radius: 6px;
+    margin: 0.3em;
+    color: var(--vt-c-white);
+    transition: 300ms;
+}
+
+.back-home-button span {
+    font-weight: 600;
+    margin-left: 0.3em;
+}
+
+.back-home-button:hover {
+    background-color: #cc2020;
+}
+</style>
