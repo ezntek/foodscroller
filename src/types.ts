@@ -42,6 +42,7 @@ export class Recipe {
     imageURL: string
     ingredients: Array<string>
     equipment: Array<string>
+    instructions: Array<string>
 
     // get a RecipeInfo object from JSON
     constructor(recipeObj: AnyObject) {
@@ -83,5 +84,6 @@ export class Recipe {
 
         this.ingredients = ingredients
         this.equipment = equipment
+        this.instructions = instructions
     }
 }

@@ -7,7 +7,16 @@
     font-weight: normal;
 }
 
-a,
+a {
+    color: var(--vt-c-green);
+    transition: 300ms;
+    padding: 3px;
+}
+
+b {
+    font-weight: 700;
+}
+
 .green {
     text-decoration: none;
     color: var(--vt-c-text-dark-2);
@@ -17,6 +26,11 @@ a,
 
 .title {
     font-weight: 800;
+}
+
+.subtitle {
+    font-weight: 700;
+    margin-bottom: 0.3em;
 }
 
 .null-button {

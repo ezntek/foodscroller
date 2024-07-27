@@ -12,6 +12,7 @@ Read LICENSE.md at the root of the project to learn more.
         <p>
             This simple web application is made for you to discover new recipies, while keeping your
             pantry, all your allergies and other dietary needs in check.
+            <b>This app makes use of the Spoonacular API, from which all data is provided.</b>
         </p>
         <br />
         <h1 class="title">FURTHER INFORMATION</h1>
